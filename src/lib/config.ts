@@ -2,7 +2,7 @@
 
 export const CONFIG = {
   // Treasury wallet address where top-ups will be sent
-  TREASURY_ADDRESS: '0x1234567890123456789012345678901234567890', // TODO: Replace with your actual treasury address
+  TREASURY_ADDRESS: '0xD1B77E5BE43d705549E38a23b59CF5365f17E227', // TODO: Replace with your actual treasury address
   
   // Telegram Bot Configuration
   TELEGRAM: {
@@ -12,7 +12,7 @@ export const CONFIG = {
   
   // Top-up limits
   TOP_UP: {
-    MIN_AMOUNT: 40000, // Minimum PEPU amount
+    MIN_AMOUNT: 40, // Minimum PEPU amount
     MAX_AMOUNT: 200000, // Maximum PEPU amount
   },
 };
