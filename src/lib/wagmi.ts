@@ -4,7 +4,7 @@ import { defineChain } from 'viem';
 
 // Pepe Unchained V2 chain configuration
 export const pepuChain = defineChain({
-  id: 97741,
+  id: 11155111,
   name: 'Pepe Unchained V2',
   network: 'pepu',
   nativeCurrency: {
@@ -13,8 +13,8 @@ export const pepuChain = defineChain({
     symbol: 'PEPU',
   },
   rpcUrls: {
-    default: { http: ['https://rpc-pepu-v2-mainnet-0.t.conduit.xyz'] },
-    public: { http: ['https://rpc-pepu-v2-mainnet-0.t.conduit.xyz'] },
+    default: { http: ['https://sepolia.drpc.org'] },
+    public: { http: ['https://sepolia.drpc.org'] },
   },
   blockExplorers: {
     default: { name: 'PEPU Scan', url: 'https://pepuscan.com/' },
