@@ -2,7 +2,7 @@
 
 export const CONFIG = {
   // Treasury wallet address where top-ups will be sent
-  TREASURY_ADDRESS: '0xD1B77E5BE43d705549E38a23b59CF5365f17E227', // TODO: Replace with your actual treasury address
+  TREASURY_ADDRESS: '0x582ca7856CEbAbC9eE62E24a7b8D1Bb2fF9814aa', // TODO: Replace with your actual treasury address
   
   // Telegram Bot Configuration
   TELEGRAM: {
