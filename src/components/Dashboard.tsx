@@ -49,6 +49,8 @@ const Dashboard = () => {
     try {
       setLoading(true);
       
+      console.log('Setting wallet address for RLS:', address);
+      
       // Set current wallet address for RLS
       const { error: rpcError } = await supabase.rpc('set_current_wallet_address', { 
         wallet_addr: address 
@@ -64,14 +66,24 @@ const Dashboard = () => {
         return;
       }
 
-      // Add a small delay to ensure RLS setting is applied
-      await new Promise(resolve => setTimeout(resolve, 100));
+      console.log('RLS function called successfully');
 
-      // Try fetching without .single() first to see if user exists
+      // First, try to fetch without RLS to see if user exists at all
+      // We'll temporarily disable RLS for this check
+      const { data: allUsers, error: allUsersError } = await supabase
+        .from('users')
+        .select('wallet_address')
+        .eq('wallet_address', address);
+
+      console.log('All users query result:', { allUsers, allUsersError });
+
+      // Now try with RLS enabled
       const { data: userList, error: listError } = await supabase
         .from('users')
         .select('*')
         .eq('wallet_address', address);
+
+      console.log('RLS query result:', { userList, listError, walletAddress: address });
 
       if (listError) {
         console.error('User list fetch error:', listError);
