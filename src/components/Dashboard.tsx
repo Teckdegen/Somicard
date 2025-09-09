@@ -50,26 +50,60 @@ const Dashboard = () => {
       setLoading(true);
       
       // Set current wallet address for RLS
-      await supabase.rpc('set_current_wallet_address', { 
+      const { error: rpcError } = await supabase.rpc('set_current_wallet_address', { 
         wallet_addr: address 
       });
-
-      // Fetch user data
-      const { data: userData, error: userError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('wallet_address', address)
-        .single();
-
-      if (userError) {
-        console.error('User fetch error:', userError);
+      
+      if (rpcError) {
+        console.error('RPC error:', rpcError);
         toast({
-          title: "Access Denied",
-          description: "Contact support to register your wallet address.",
+          title: "Configuration Error",
+          description: "Failed to set wallet context. Please try again.",
           variant: "destructive",
         });
         return;
       }
+
+      // Add a small delay to ensure RLS setting is applied
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Try fetching without .single() first to see if user exists
+      const { data: userList, error: listError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('wallet_address', address);
+
+      if (listError) {
+        console.error('User list fetch error:', listError);
+        toast({
+          title: "Database Error",
+          description: "Failed to access user data. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!userList || userList.length === 0) {
+        console.error('No user found for wallet:', address);
+        toast({
+          title: "User Not Found",
+          description: "Wallet address not registered. Contact support.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (userList.length > 1) {
+        console.error('Multiple users found for wallet:', address);
+        toast({
+          title: "Data Integrity Error",
+          description: "Multiple users found for this wallet. Contact support.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const userData = userList[0];
 
       setUser(userData);
 
