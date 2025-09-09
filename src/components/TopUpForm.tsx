@@ -3,7 +3,7 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { Loader2, TrendingUp } from 'lucide-react';
+import { Loader2, TrendingUp, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CONFIG } from '@/lib/config';
 
@@ -106,6 +106,21 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
           </div>
 
           {/* Manual input only - no quick amounts */}
+
+          {/* Disclaimer */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2">
+            <div className="flex items-start space-x-2">
+              <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="space-y-1">
+                <p className="text-xs text-blue-800 font-medium">Important Information:</p>
+                <ul className="text-xs text-blue-700 space-y-1">
+                  <li>• Balance updates may take a few minutes to reflect</li>
+                  <li>• Your funds are secure and protected during processing</li>
+                  <li>• We charge a 5% fee on all top-ups</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
           <Button
             type="submit"
