@@ -236,13 +236,15 @@ const Dashboard = () => {
     if (!user || !address) return;
 
     try {
-      // Convert PEPU to ETH using the configured ratio
-      const ethAmount = parseEther((amount / CONFIG.CONVERSION.PEPU_TO_ETH_RATIO).toString());
+      // PEPU is the native gas token, so we send PEPU directly (no conversion needed)
+      const pepuAmount = parseEther(amount.toString());
       
-      // Send transaction to treasury address
+      console.log(`🚀 Sending ${amount.toLocaleString()} PEPU to treasury`);
+      
+      // Send PEPU transaction to treasury address
       sendTransaction({
         to: getTreasuryAddress(),
-        value: ethAmount,
+        value: pepuAmount,
       });
       
       // Store pending transaction info
