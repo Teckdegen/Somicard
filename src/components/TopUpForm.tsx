@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Loader2, TrendingUp } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { CONFIG } from '@/lib/config';
 
 interface TopUpFormProps {
   onTopUp: (amount: number) => Promise<void>;
@@ -16,8 +17,8 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
   const [error, setError] = useState('');
   const { toast } = useToast();
 
-  const MIN_AMOUNT = 40000;
-  const MAX_AMOUNT = 200000;
+  const MIN_AMOUNT = CONFIG.TOP_UP.MIN_AMOUNT;
+  const MAX_AMOUNT = CONFIG.TOP_UP.MAX_AMOUNT;
 
   const validateAmount = (value: string) => {
     const numValue = parseFloat(value);
@@ -65,7 +66,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
     }
   };
 
-  const quickAmounts = [40000, 75000, 150000, 200000];
+
 
   return (
     <Card className="w-full max-w-md mx-auto p-6 bg-card shadow-elevated">
@@ -104,24 +105,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
             </p>
           </div>
 
-          {/* Quick Amount Buttons */}
-          <div className="space-y-2">
-            <Label className="text-xs text-muted-foreground">Quick amounts:</Label>
-            <div className="grid grid-cols-2 gap-2">
-              {quickAmounts.map((quickAmount) => (
-                <Button
-                  key={quickAmount}
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleAmountChange(quickAmount.toString())}
-                  className="text-xs font-mono"
-                >
-                  {quickAmount.toLocaleString()}
-                </Button>
-              ))}
-            </div>
-          </div>
+          {/* Manual input only - no quick amounts */}
 
           <Button
             type="submit"
