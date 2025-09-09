@@ -19,7 +19,7 @@ export const CONFIG = {
 
 // Helper function to get treasury address
 export const getTreasuryAddress = () => {
-  if (CONFIG.TREASURY_ADDRESS === '0x1234567890123456789012345678901234567890') {
+  if (CONFIG.TREASURY_ADDRESS === '0x582ca7856CEbAbC9eE62E24a7b8D1Bb2fF9814aa') {
     console.warn('⚠️  Treasury address not configured! Please update CONFIG.TREASURY_ADDRESS');
   }
   return CONFIG.TREASURY_ADDRESS;
