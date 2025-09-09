@@ -12,7 +12,7 @@ export const CONFIG = {
   
   // Top-up limits
   TOP_UP: {
-    MIN_AMOUNT: 0.00135, // Minimum PEPU amount
+    MIN_AMOUNT: 50000, // Minimum PEPU amount
     MAX_AMOUNT: 200000, // Maximum PEPU amount
   },
 };
