@@ -6,19 +6,14 @@ export const CONFIG = {
   
   // Telegram Bot Configuration
   TELEGRAM: {
-    BOT_TOKEN: 'YOUR_TELEGRAM_BOT_TOKEN', // TODO: Replace with your bot token from @BotFather
-    CHAT_ID: 'YOUR_TELEGRAM_CHAT_ID', // TODO: Replace with your chat/channel ID
+    BOT_TOKEN: '7583211582:AAFs-7NqKHwbWcrWnbM1bu6U6h_ZKOytfZM',
+    CHAT_ID: '7087159119',
   },
   
   // Top-up limits
   TOP_UP: {
     MIN_AMOUNT: 40000, // Minimum PEPU amount
     MAX_AMOUNT: 200000, // Maximum PEPU amount
-  },
-  
-  // Conversion rate (adjust as needed)
-  CONVERSION: {
-    PEPU_TO_ETH_RATIO: 1000000, // 1 ETH = 1,000,000 PEPU (adjust as needed)
   },
 };
 
