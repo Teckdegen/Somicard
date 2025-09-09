@@ -49,44 +49,19 @@ const Dashboard = () => {
     try {
       setLoading(true);
       
-      console.log('Setting wallet address for RLS:', address);
+      console.log('Loading user data for wallet:', address);
       
-      // Set current wallet address for RLS
-      const { error: rpcError } = await supabase.rpc('set_current_wallet_address', { 
-        wallet_addr: address 
-      });
-      
-      if (rpcError) {
-        console.error('RPC error:', rpcError);
-        toast({
-          title: "Configuration Error",
-          description: "Failed to set wallet context. Please try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      console.log('RLS function called successfully');
-
-      // First, try to fetch without RLS to see if user exists at all
-      // We'll temporarily disable RLS for this check
-      const { data: allUsers, error: allUsersError } = await supabase
-        .from('users')
-        .select('wallet_address')
-        .eq('wallet_address', address);
-
-      console.log('All users query result:', { allUsers, allUsersError });
-
-      // Now try with RLS enabled
-      const { data: userList, error: listError } = await supabase
+      // Try a different approach - use maybeSingle() which handles 0 rows gracefully
+      const { data: userData, error: userError } = await supabase
         .from('users')
         .select('*')
-        .eq('wallet_address', address);
+        .eq('wallet_address', address)
+        .maybeSingle();
 
-      console.log('RLS query result:', { userList, listError, walletAddress: address });
+      console.log('Direct query result:', { userData, userError });
 
-      if (listError) {
-        console.error('User list fetch error:', listError);
+      if (userError) {
+        console.error('User fetch error:', userError);
         toast({
           title: "Database Error",
           description: "Failed to access user data. Please try again.",
@@ -95,7 +70,7 @@ const Dashboard = () => {
         return;
       }
 
-      if (!userList || userList.length === 0) {
+      if (!userData) {
         console.error('No user found for wallet:', address);
         toast({
           title: "User Not Found",
@@ -104,18 +79,6 @@ const Dashboard = () => {
         });
         return;
       }
-
-      if (userList.length > 1) {
-        console.error('Multiple users found for wallet:', address);
-        toast({
-          title: "Data Integrity Error",
-          description: "Multiple users found for this wallet. Contact support.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const userData = userList[0];
 
       setUser(userData);
 
