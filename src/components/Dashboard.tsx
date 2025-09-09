@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+import { parseEther } from 'viem';
 import { LogOut, Copy, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { CONFIG, getTreasuryAddress, isTelegramConfigured } from '@/lib/config';
 import DebitCard from './DebitCard';
 import TopUpForm from './TopUpForm';
 import TransactionHistory from './TransactionHistory';
@@ -32,16 +34,42 @@ const Dashboard = () => {
   const { disconnect } = useDisconnect();
   const { toast } = useToast();
   
+  // Transaction hooks
+  const { sendTransaction, data: hash, isPending, error: sendError } = useSendTransaction();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash,
+  });
+  
   const [user, setUser] = useState<User | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
-  const [topUpLoading, setTopUpLoading] = useState(false);
+  const [pendingTopUp, setPendingTopUp] = useState<{ amount: number; hash: string } | null>(null);
 
   useEffect(() => {
     if (address) {
       loadUserData();
     }
   }, [address]);
+
+  // Handle transaction confirmation
+  useEffect(() => {
+    if (isConfirmed && hash && pendingTopUp) {
+      handleTransactionConfirmed(hash, pendingTopUp.amount);
+    }
+  }, [isConfirmed, hash, pendingTopUp]);
+
+  // Handle transaction errors
+  useEffect(() => {
+    if (sendError) {
+      console.error('Send transaction error:', sendError);
+      toast({
+        title: "Transaction Failed",
+        description: sendError.message || "Transaction failed. Please try again.",
+        variant: "destructive",
+      });
+      setPendingTopUp(null);
+    }
+  }, [sendError, toast]);
 
   const loadUserData = async () => {
     if (!address) return;
@@ -106,21 +134,16 @@ const Dashboard = () => {
     }
   };
 
-  const handleTopUp = async (amount: number) => {
-    if (!user) return;
+  const handleTransactionConfirmed = async (txHash: string, amount: number) => {
+    if (!user || !address) return;
 
     try {
-      setTopUpLoading(true);
-      
-      // Generate a mock transaction hash for demo purposes
-      const mockTxHash = '0x' + Array.from({length: 64}, () => Math.floor(Math.random() * 16).toString(16)).join('');
-      
-      // Insert transaction record
+      // Insert real transaction record
       const { error: transactionError } = await supabase
         .from('transactions')
         .insert({
           user_id: user.id,
-          tx_hash: mockTxHash,
+          tx_hash: txHash,
           amount: amount,
           status: 'confirmed'
         });
@@ -140,22 +163,102 @@ const Dashboard = () => {
         throw balanceError;
       }
 
+      // Send Telegram notification
+      await sendTelegramNotification({
+        name: user.full_name,
+        amount: amount,
+        wallet: address,
+        txHash: txHash
+      });
+
       // Refresh data
       await loadUserData();
+      setPendingTopUp(null);
       
       toast({
         title: "Top-up Successful!",
         description: `Added ${amount.toLocaleString()} PEPU to your balance.`,
       });
     } catch (error) {
-      console.error('Top-up error:', error);
+      console.error('Transaction confirmation error:', error);
       toast({
-        title: "Top-up Failed",
-        description: "Please try again later.",
+        title: "Processing Error",
+        description: "Transaction completed but processing failed. Contact support.",
         variant: "destructive",
       });
-    } finally {
-      setTopUpLoading(false);
+    }
+  };
+
+  const sendTelegramNotification = async (data: {
+    name: string;
+    amount: number;
+    wallet: string;
+    txHash: string;
+  }) => {
+    // Check if Telegram is configured
+    if (!isTelegramConfigured()) {
+      console.warn('⚠️  Telegram not configured. Skipping notification.');
+      return;
+    }
+
+    try {
+      const message = `🚀 New Top-up Transaction\n\n` +
+        `👤 Name: ${data.name}\n` +
+        `💰 Amount: ${data.amount.toLocaleString()} PEPU\n` +
+        `🔗 Wallet: ${data.wallet}\n` +
+        `📋 TX Hash: ${data.txHash}\n` +
+        `⏰ Time: ${new Date().toLocaleString()}`;
+
+      const response = await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM.BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: CONFIG.TELEGRAM.CHAT_ID,
+          text: message,
+          parse_mode: 'HTML'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send Telegram notification');
+      }
+
+      console.log('✅ Telegram notification sent successfully');
+    } catch (error) {
+      console.error('❌ Telegram notification error:', error);
+      // Don't throw - notification failure shouldn't break the flow
+    }
+  };
+
+  const handleTopUp = async (amount: number) => {
+    if (!user || !address) return;
+
+    try {
+      // Convert PEPU to ETH using the configured ratio
+      const ethAmount = parseEther((amount / CONFIG.CONVERSION.PEPU_TO_ETH_RATIO).toString());
+      
+      // Send transaction to treasury address
+      sendTransaction({
+        to: getTreasuryAddress(),
+        value: ethAmount,
+      });
+      
+      // Store pending transaction info
+      setPendingTopUp({ amount, hash: '' });
+      
+      toast({
+        title: "Transaction Initiated",
+        description: "Please confirm the transaction in your wallet.",
+      });
+    } catch (error) {
+      console.error('Transaction error:', error);
+      toast({
+        title: "Transaction Failed",
+        description: "Failed to initiate transaction. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -266,7 +369,7 @@ const Dashboard = () => {
           <section>
             <TopUpForm
               onTopUp={handleTopUp}
-              isLoading={topUpLoading}
+              isLoading={isPending || isConfirming}
             />
           </section>
 
