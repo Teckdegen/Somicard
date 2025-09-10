@@ -40,6 +40,9 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
     setError(validationError);
   };
 
+  const bridgeFee = amount ? parseFloat(amount) * 0.05 : 0;
+  const totalAmount = amount ? parseFloat(amount) + bridgeFee : 0;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -50,7 +53,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
     }
 
     try {
-      await onTopUp(parseFloat(amount));
+      await onTopUp(totalAmount);
       setAmount('');
       setError('');
       toast({
@@ -105,7 +108,25 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
             </p>
           </div>
 
-          {/* Manual input only - no quick amounts */}
+          {/* Fee breakdown */}
+          {amount && !isNaN(parseFloat(amount)) && (
+            <div className="bg-muted/50 border border-border rounded-lg p-4 space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Base Amount:</span>
+                <span className="font-mono">{parseFloat(amount).toLocaleString()} PEPU</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">Bridge Fee (5%):</span>
+                <span className="font-mono text-orange-600">+{bridgeFee.toLocaleString()} PEPU</span>
+              </div>
+              <div className="border-t border-border pt-2">
+                <div className="flex justify-between text-base font-semibold">
+                  <span>Total Amount:</span>
+                  <span className="font-mono text-primary">{totalAmount.toLocaleString()} PEPU</span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Disclaimer */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2">
