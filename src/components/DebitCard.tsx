@@ -38,6 +38,8 @@ const DebitCard = ({
 
   const formatBalance = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(amount);
@@ -61,7 +63,7 @@ const DebitCard = ({
               Top up PEPU to activate your card
             </p>
             <p className="text-2xl font-bold text-card-foreground">
-              {formatBalance(balance)} PEPU
+              {formatBalance(balance)}
             </p>
           </div>
         </div>
@@ -83,7 +85,7 @@ const DebitCard = ({
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-xs font-medium opacity-80">PEPUNS X PENK</h3>
-            <p className="text-lg font-bold mt-1">{formatBalance(balance)} PEPU</p>
+            <p className="text-lg font-bold mt-1">{formatBalance(balance)}</p>
           </div>
           <button
             onClick={() => setShowSensitive(!showSensitive)}
