@@ -133,10 +133,10 @@ const DebitCard = ({
             <Button
               onClick={handleBalanceReload}
               size="sm"
-              variant="secondary"
-              className="h-8 px-3 text-xs bg-primary-foreground/20 text-primary-foreground border border-primary-foreground/30 hover:bg-primary-foreground/30 hover:scale-105 transition-all duration-200"
+              variant="default"
+              className="h-9 px-4 text-sm bg-background text-foreground border-2 border-background hover:bg-accent hover:text-accent-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
             >
-              <RefreshCw size={14} className="mr-1" />
+              <RefreshCw size={16} className="mr-2" />
               Reload Balance
             </Button>
             <button
