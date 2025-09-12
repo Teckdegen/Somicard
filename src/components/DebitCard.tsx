@@ -83,8 +83,8 @@ const DebitCard = ({
       }
 
       toast({
-        title: "Balance Reload Requested",
-        description: "Your funds are safe. Balance will be updated shortly.",
+        title: "Balance Update",
+        description: "Balance would be updated shortly.",
       });
     } catch (error) {
       toast({
@@ -133,11 +133,11 @@ const DebitCard = ({
             <Button
               onClick={handleBalanceReload}
               size="sm"
-              variant="ghost"
-              className="h-8 px-2 text-xs text-primary-foreground hover:bg-primary-foreground/10"
+              variant="secondary"
+              className="h-8 px-3 text-xs bg-primary-foreground/20 text-primary-foreground border border-primary-foreground/30 hover:bg-primary-foreground/30 hover:scale-105 transition-all duration-200"
             >
-              <RefreshCw size={12} />
-              Reload
+              <RefreshCw size={14} className="mr-1" />
+              Reload Balance
             </Button>
             <button
               onClick={() => setShowSensitive(!showSensitive)}
