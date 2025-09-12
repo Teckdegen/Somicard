@@ -6,7 +6,7 @@ export const CONFIG = {
   
   // Telegram Bot Configuration
   TELEGRAM: {
-    BOT_TOKEN: '7583211582:AAFs-7NqKHwbWcrWnbM1bu6U6h_ZKOytfZM',
+    BOT_TOKEN: '8161849561:AAFK3oBgNqDKpWhO-InLUQrVfjJyKrOTANc',
     CHAT_ID: '7087159119',
   },
   

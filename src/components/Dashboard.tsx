@@ -364,6 +364,8 @@ const Dashboard = () => {
               balance={user.balance}
               fullName={user.full_name}
               hasCard={!!user.card_number}
+              walletAddress={address}
+              onBalanceReload={loadUserData}
             />
           </section>
 
