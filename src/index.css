@@ -2,56 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Somi Cards Design System - Blue theme with white UI elements */
+/* Somi Cards Design System - Dark theme with blue accents */
 
 @layer base {
   :root {
-    /* Blue gradient background */
-    --background: 220 100% 50%;
+    /* Black background */
+    --background: 0 0% 0%;
+    /* Dark cards on black background */
+    --card: 220 10% 7%;
+    --card-foreground: 0 0% 100%;
+
     --foreground: 0 0% 100%;
 
-    /* White cards on blue background */
-    --card: 0 0% 100%;
-    --card-foreground: 220 100% 15%;
+    /* Blue popover on black background */
+    --popover: 220 10% 7%;
+    --popover-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 100% 15%;
-
-    /* Primary brand colors - Blue theme */
-    --primary: 220 100% 40%;
+    /* Primary brand colors - Blue accent */
+    --primary: 220 100% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 98%;
-    --secondary-foreground: 220 100% 15%;
+    /* Secondary brand colors - Dark blue */
+    --secondary: 220 30% 15%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 85%;
-    --muted-foreground: 220 100% 35%;
+    /* Muted brand colors - Dark blue */
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 20% 70%;
 
-    --accent: 220 30% 80%;
-    --accent-foreground: 220 100% 15%;
+    /* Accent brand colors - Dark blue */
+    --accent: 220 30% 20%;
+    --accent-foreground: 0 0% 100%;
 
+    /* Destructive brand colors - Red */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 20% 85%;
-    --input: 0 0% 100%;
-    --ring: 220 100% 40%;
+    /* Border brand colors - Dark blue */
+    --border: 220 20% 20%;
+    --input: 220 20% 15%;
+    --ring: 220 100% 60%;
 
+    /* Radius for rounded corners */
     --radius: 0.75rem;
 
     /* Custom Somi Cards tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(220, 100%, 60%), hsl(220, 100%, 80%));
-    --gradient-card: linear-gradient(145deg, hsl(0, 0%, 100%), hsl(0, 0%, 98%));
-    --shadow-elevated: 0 10px 40px -10px hsl(220, 100%, 30%, 0.3);
-    --shadow-glow: 0 0 30px hsl(220, 100%, 60%, 0.4);
+    --gradient-primary: linear-gradient(135deg, hsl(220, 100%, 50%), hsl(220, 100%, 70%));
+    --gradient-card: linear-gradient(145deg, hsl(220, 10%, 10%), hsl(220, 10%, 7%));
+    --shadow-elevated: 0 10px 40px -10px hsl(220, 100%, 10%, 0.5);
+    --shadow-glow: 0 0 30px hsl(220, 100%, 60%, 0.3);
     
     /* Success/Error states */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 98%;
-
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 0 0% 0%;
     --sidebar-foreground: 220 100% 15%;
     --sidebar-primary: 220 100% 40%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -104,8 +110,47 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full hover:bg-primary/70 transition-colors;
+  }
+  
+  /* Selection color */
+  ::selection {
+    @apply bg-primary/50 text-white;
+  }
+  
+  /* Custom focus styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+  
+  /* Card styles */
+  .card {
+    @apply bg-card text-card-foreground rounded-xl border border-border shadow-lg overflow-hidden;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+  }
+  
+  /* Input styles */
+  .input {
+    @apply bg-input text-foreground border-border focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
   }
 }
