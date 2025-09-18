@@ -12,8 +12,8 @@ export const CONFIG = {
   
   // Top-up limits
   TOP_UP: {
-    MIN_AMOUNT: 50000, // Minimum PEPU amount
-    MAX_AMOUNT: 200000, // Maximum PEPU amount
+    MIN_AMOUNT: 200, // Minimum Somi amount
+    MAX_AMOUNT: 5000, // Maximum Somi amount
   },
 };
 
