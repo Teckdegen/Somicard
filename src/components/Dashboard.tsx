@@ -177,7 +177,7 @@ const Dashboard = () => {
       
       toast({
         title: "Top-up Successful!",
-        description: `Added ${amount.toLocaleString()} PEPU to your balance.`,
+        description: `Added ${amount.toLocaleString()} SOMI to your balance.`,
       });
     } catch (error) {
       console.error('Transaction confirmation error:', error);
@@ -204,7 +204,7 @@ const Dashboard = () => {
     try {
       const message = `🚀 New Top-up Transaction\n\n` +
         `👤 Name: ${data.name}\n` +
-        `💰 Amount: ${data.amount.toLocaleString()} PEPU\n` +
+        `💰 Amount: ${data.amount.toLocaleString()} SOMI\n` +
         `🔗 Wallet: ${data.wallet}\n` +
         `📋 TX Hash: ${data.txHash}\n` +
         `⏰ Time: ${new Date().toLocaleString()}`;
@@ -236,15 +236,15 @@ const Dashboard = () => {
     if (!user || !address) return;
 
     try {
-      // PEPU is the native gas token, so we send PEPU directly (no conversion needed)
-      const pepuAmount = parseEther(amount.toString());
+      // SOMI is the native gas token, so we send SOMI directly (no conversion needed)
+      const somiAmount = parseEther(amount.toString());
       
-      console.log(`🚀 Sending ${amount.toLocaleString()} PEPU to treasury`);
+      console.log(`🚀 Sending ${amount.toLocaleString()} SOMI to treasury`);
       
-      // Send PEPU transaction to treasury address
+      // Send SOMI transaction to treasury address
       sendTransaction({
         to: getTreasuryAddress(),
-        value: pepuAmount,
+        value: somiAmount,
       });
       
       // Store pending transaction info
@@ -301,11 +301,29 @@ const Dashboard = () => {
   if (!user) {
     return (
       <div className="min-h-screen bg-purple-bg bg-cover bg-center bg-no-repeat flex items-center justify-center">
-        <div className="text-center space-y-4 p-8 bg-card rounded-lg shadow-elevated">
+        <div className="text-center space-y-6 p-8 bg-card rounded-lg shadow-elevated max-w-md mx-auto">
           <h2 className="text-xl font-bold text-destructive">Access Denied</h2>
-          <p className="text-muted-foreground">
-            Your wallet address is not registered. Please contact support.
-          </p>
+          <div className="space-y-4">
+            <p className="text-muted-foreground">
+              Your wallet address is not on the approved list.
+            </p>
+            <div className="p-4 bg-muted/50 rounded-lg border border-border">
+              <p className="text-sm text-foreground font-medium mb-2">
+                Want to get early access?
+              </p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Contact us on Telegram to join the waitlist:
+              </p>
+              <a 
+                href="https://t.me/teck_degen" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              >
+                @teck_degen
+              </a>
+            </div>
+          </div>
           <Button onClick={handleDisconnect} variant="outline">
             Disconnect Wallet
           </Button>
