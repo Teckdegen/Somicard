@@ -96,8 +96,8 @@ This project is licensed under the MIT License.
 ---
 
 ## Contact & Community
-- [Somnia Network Website](https://somnia.network)
-- [Telegram Community](https://t.me/somnia)
-- [Twitter](https://twitter.com/somnia)
+- [Somnia Network Website](https://somnicard.vercel.app)
+- [Telegram Community](https://t.me/teck_degen)
+- [Twitter](https://x.com/teck_degen)
 
-For support or partnership inquiries, please contact support@somnia.network
+For support or partnership inquiries, please contact teckdegen@gmail.com
