@@ -1,73 +1,69 @@
-# Welcome to your Lovable project
+Somi Cards is a crypto-powered debit card built on the Somnia Network that allows users to instantly convert and spend SOMI tokens and other supported digital assets as fiat currency anywhere debit cards are accepted.
 
-## Project info
+Our mission is to bridge Web3 finance with everyday commerce, enabling seamless, secure, and global adoption of digital assets.
 
-**URL**: https://lovable.dev/projects/09b370ea-5a92-4e79-a174-6a27dd60e77b
+Problem Statement
 
-## How can I edit this code?
+Traditional debit cards do not natively support crypto payments.
 
-There are several ways of editing your application.
+Converting tokens into fiat is slow, complex, and expensive.
 
-**Use Lovable**
+Crypto adoption remains limited due to a lack of real-world utility.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/09b370ea-5a92-4e79-a174-6a27dd60e77b) and start prompting.
+Merchants face high fees and integration friction.
 
-Changes made via Lovable will be committed automatically to this repo.
+Solution — Somi Cards
 
-**Use your preferred IDE**
+Somi Cards eliminates the gap between crypto and fiat by providing:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Instant conversion of SOMI and other tokens into fiat at point-of-sale.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Universal acceptance across any merchant supporting debit card networks.
 
-Follow these steps:
+Secure infrastructure leveraging blockchain transparency and bank-grade security.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+User-first experience with mobile card management, transparency, and loyalty rewards.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Key Features
 
-# Step 3: Install the necessary dependencies.
-npm i
+💳 Physical & Virtual Cards: issue instantly and spend globally.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+🌐 Multi-Currency Support: convert tokens into supported fiat currencies on-the-fly.
 
-**Edit a file directly in GitHub**
+🔒 Security First: biometric login, spend limits, instant freeze/unfreeze.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+📊 Transparent Fees: all conversion rates and fees visible before confirmation.
 
-**Use GitHub Codespaces**
+🎁 Rewards Program: earn cashback and loyalty in SOMI tokens.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Technology & Security
 
-## What technologies are used for this project?
+Built on Somnia Network for fast settlement and scalability.
 
-This project is built with:
+Fiat rails via licensed issuer partners to ensure compliance.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Non-custodial & custodial options with MPC key management.
 
-## How can I deploy this project?
+PCI-DSS alignment and ongoing audits for maximum data protection.
 
-Simply open [Lovable](https://lovable.dev/projects/09b370ea-5a92-4e79-a174-6a27dd60e77b) and click on Share -> Publish.
+Fraud detection powered by AI-based heuristics and transaction monitoring.
 
-## Can I connect a custom domain to my Lovable project?
+Tokenomics & Business Model
 
-Yes, you can!
+SOMI Token Utility
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Pay card fees at a discount
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Stake SOMI for premium card tiers
+
+Earn rewards in SOMI for card usage
+
+Revenue Streams
+
+Interchange fees from card transactions
+
+FX spread on conversions
+
+Subscription fees for premium plans
+
+Merchant integration fees
