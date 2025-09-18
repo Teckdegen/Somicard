@@ -118,7 +118,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
                 
                 <div className="space-y-1">
                   <p className="font-mono text-sm font-medium text-card-foreground">
-                    +{formatAmount(transaction.amount)} PEPU
+                    +{formatAmount(transaction.amount)} SOMI
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {formatDate(transaction.created_at)}
@@ -128,7 +128,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
 
               <div className="flex items-center space-x-2">
                 <a
-                  href={`https://pepuscan.com/tx/${transaction.tx_hash}`}
+                  href={`https://explorer.somnia.network/tx/${transaction.tx_hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-xs text-primary hover:text-primary/80 transition-colors"
