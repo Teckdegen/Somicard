@@ -26,10 +26,10 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
       return 'Please enter a valid number';
     }
     if (numValue < MIN_AMOUNT) {
-      return `Minimum amount is ${MIN_AMOUNT.toLocaleString()} PEPU`;
+      return `Minimum amount is ${MIN_AMOUNT.toLocaleString()} SOMI`;
     }
     if (numValue > MAX_AMOUNT) {
-      return `Maximum amount is ${MAX_AMOUNT.toLocaleString()} PEPU`;
+      return `Maximum amount is ${MAX_AMOUNT.toLocaleString()} SOMI`;
     }
     return '';
   };
@@ -77,7 +77,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center space-x-2">
             <TrendingUp className="w-5 h-5 text-primary" />
-            <h3 className="text-lg font-semibold text-card-foreground">Top Up PEPU</h3>
+            <h3 className="text-lg font-semibold text-card-foreground">Top Up SOMI</h3>
           </div>
           <p className="text-sm text-muted-foreground">
             Add funds to your debit card balance
@@ -87,7 +87,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="amount" className="text-sm font-medium">
-              Amount (PEPU)
+              Amount (SOMI)
             </Label>
             <Input
               id="amount"
@@ -104,7 +104,7 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
               <p className="text-sm text-destructive text-center">{error}</p>
             )}
             <p className="text-xs text-muted-foreground text-center">
-              Min: {MIN_AMOUNT.toLocaleString()} • Max: {MAX_AMOUNT.toLocaleString()} PEPU
+              Min: {MIN_AMOUNT.toLocaleString()} • Max: {MAX_AMOUNT.toLocaleString()} SOMI
             </p>
           </div>
 
@@ -113,16 +113,16 @@ const TopUpForm = ({ onTopUp, isLoading }: TopUpFormProps) => {
             <div className="bg-muted/50 border border-border rounded-lg p-4 space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Base Amount:</span>
-                <span className="font-mono">{parseFloat(amount).toLocaleString()} PEPU</span>
+                <span className="font-mono">{parseFloat(amount).toLocaleString()} SOMI</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Bridge Fee (5%):</span>
-                <span className="font-mono text-orange-600">+{bridgeFee.toLocaleString()} PEPU</span>
+                <span className="font-mono text-orange-600">+{bridgeFee.toLocaleString()} SOMI</span>
               </div>
               <div className="border-t border-border pt-2">
                 <div className="flex justify-between text-base font-semibold">
                   <span>Total Amount:</span>
-                  <span className="font-mono text-primary">{totalAmount.toLocaleString()} PEPU</span>
+                  <span className="font-mono text-primary">{totalAmount.toLocaleString()} SOMI</span>
                 </div>
               </div>
             </div>
