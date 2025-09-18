@@ -8,7 +8,7 @@ const LandingPage = () => {
         <Card className="bg-card shadow-elevated border-0 p-8 text-center space-y-8">
           <div className="space-y-4">
             <h1 className="text-2xl sm:text-3xl font-bold text-card-foreground leading-tight">
-              PEPUNS X PENK
+              Somi Cards
               <br />
               DEBIT CARDS
             </h1>
