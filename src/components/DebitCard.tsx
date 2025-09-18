@@ -126,7 +126,7 @@ const DebitCard = ({
         {/* Header */}
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="text-xs font-medium opacity-80">PEPUNS X PENK</h3>
+            <h3 className="text-xs font-medium opacity-80">Somi Cards</h3>
             <p className="text-lg font-bold mt-1">{formatBalance(balance)}</p>
           </div>
           <div className="flex items-center gap-2">
