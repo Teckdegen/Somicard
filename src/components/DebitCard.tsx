@@ -18,177 +18,167 @@ interface DebitCardProps {
 }
 
 const DebitCard = ({ 
-  cardNumber, 
-  expiryDate, 
-  cvv, 
-  billingAddress, 
-  balance, 
-  fullName,
-  hasCard,
+  cardNumber = '•••• •••• •••• ••••', 
+  expiryDate = '••/••', 
+  cvv = '•••', 
+  billingAddress = 'Not provided', 
+  balance = 0, 
+  fullName = 'YOUR NAME',
+  hasCard = false,
   walletAddress,
   onBalanceReload
 }: DebitCardProps) => {
-  const [showSensitive, setShowSensitive] = useState(false);
   const { toast } = useToast();
-
-  const formatCardNumber = (number?: string) => {
-    if (!number) return '**** **** **** ****';
-    if (showSensitive) return number.replace(/(.{4})/g, '$1 ').trim();
-    return `**** **** **** ${number.slice(-4)}`;
-  };
-
-  const formatCVV = (cvv?: string) => {
-    if (!cvv) return '***';
-    return showSensitive ? cvv : '***';
-  };
-
-  const formatBalance = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  };
+  const [showDetails, setShowDetails] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const copyToClipboard = (text: string, label: string) => {
+    if (!hasCard) return;
     navigator.clipboard.writeText(text);
     toast({
-      title: "Copied!",
-      description: `${label} copied to clipboard`,
+      title: `${label} copied to clipboard`,
+      duration: 2000,
     });
   };
 
-  const handleBalanceReload = async () => {
-    if (!walletAddress || !fullName) return;
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
+  };
+
+  const handleReloadBalance = async () => {
+    if (!onBalanceReload) return;
     
+    setIsLoading(true);
     try {
-      // Send Telegram notification
-      const message = `🔄 Balance Reload Request\n\nName: ${fullName}\nWallet: ${walletAddress}`;
-      
-      await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM.BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: CONFIG.TELEGRAM.CHAT_ID,
-          text: message,
-        }),
-      });
-
-      // Call the reload function if provided
-      if (onBalanceReload) {
-        onBalanceReload();
-      }
-
+      await onBalanceReload();
       toast({
-        title: "Balance Update",
-        description: "Balance would be updated shortly.",
+        title: 'Balance updated',
+        description: 'Your card balance has been refreshed.',
+        duration: 2000,
       });
     } catch (error) {
       toast({
-        title: "Request Failed",
-        description: "Please try again later.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Failed to update balance. Please try again.',
+        variant: 'destructive',
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (!hasCard) {
-    return (
-      <Card className="relative w-full max-w-md mx-auto h-56 bg-gradient-card border-2 border-dashed border-muted flex items-center justify-center">
-        <div className="text-center space-y-4 p-6">
-          <div className="text-6xl">🐸</div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground font-medium">
-              Top up PEPU to activate your card
-            </p>
-            <p className="text-2xl font-bold text-card-foreground">
-              {formatBalance(balance)}
-            </p>
-          </div>
-        </div>
-      </Card>
-    );
-  }
-
   return (
-    <Card className="relative w-full max-w-md mx-auto h-56 bg-gradient-primary text-primary-foreground shadow-elevated overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-4 right-4 w-16 h-16 rounded-full border-2 border-primary-foreground/30"></div>
-        <div className="absolute top-8 right-8 w-8 h-8 rounded-full border-2 border-primary-foreground/20"></div>
-      </div>
-      
-      {/* Card Content */}
-      <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-        {/* Header */}
-        <div className="flex justify-between items-start">
-          <div>
-            <h3 className="text-xs font-medium opacity-80">Somi Cards</h3>
-            <p className="text-lg font-bold mt-1">{formatBalance(balance)}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              onClick={handleBalanceReload}
-              size="sm"
-              variant="default"
-              className="h-9 px-4 text-sm bg-background text-foreground border-2 border-background hover:bg-accent hover:text-accent-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold"
-            >
-              <RefreshCw size={16} className="mr-2" />
-              Reload Balance
-            </Button>
-            <button
-              onClick={() => setShowSensitive(!showSensitive)}
-              className="p-2 hover:bg-primary-foreground/10 rounded-lg transition-colors"
-            >
-              {showSensitive ? <EyeOff size={16} /> : <Eye size={16} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Card Number */}
-        <div className="space-y-4">
-          <div 
-            className="cursor-pointer group"
-            onClick={() => cardNumber && copyToClipboard(cardNumber, 'Card number')}
-          >
-            <p className="text-xs opacity-60 mb-1">CARD NUMBER</p>
-            <p className="text-lg font-mono tracking-wider group-hover:opacity-80 transition-opacity">
-              {formatCardNumber(cardNumber)}
-              {cardNumber && <Copy className="inline ml-2 w-4 h-4 opacity-60" />}
-            </p>
-          </div>
-
-          {/* Bottom Row */}
-          <div className="flex justify-between items-end">
-            <div>
-              <p className="text-xs opacity-60 mb-1">CARDHOLDER</p>
-              <p className="text-sm font-medium uppercase">{fullName}</p>
+    <div className="space-y-6">
+      {/* Card Preview */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl blur-xl -z-10" />
+        <Card className="bg-gradient-to-br from-card to-card/90 border-border/50 overflow-hidden shadow-lg">
+          <div className="p-6 space-y-6">
+            <div className="flex justify-between items-center">
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">Balance</div>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                onClick={handleReloadBalance}
+                disabled={isLoading}
+              >
+                <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+              </Button>
             </div>
             
-            <div className="text-right space-x-4 flex">
+            <div className="text-3xl font-bold">
+              {balance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            </div>
+            
+            <div className="flex items-center justify-between pt-4 border-t border-border/50">
               <div>
-                <p className="text-xs opacity-60 mb-1">EXPIRES</p>
-                <p className="text-sm font-mono">{expiryDate || 'MM/YY'}</p>
+                <div className="text-xs text-muted-foreground mb-1">Card Number</div>
+                <div className="font-mono tracking-wider">
+                  {showDetails ? cardNumber : '•••• •••• •••• ••••'}
+                </div>
               </div>
-              
-              <div 
-                className="cursor-pointer group"
-                onClick={() => cvv && copyToClipboard(cvv, 'CVV')}
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                onClick={toggleDetails}
               >
-                <p className="text-xs opacity-60 mb-1">CVV</p>
-                <p className="text-sm font-mono group-hover:opacity-80 transition-opacity">
-                  {formatCVV(cvv)}
-                  {cvv && <Copy className="inline ml-1 w-3 h-3 opacity-60" />}
-                </p>
+                {showDetails ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Expires</div>
+                <div className="font-mono">{showDetails ? expiryDate : '••/••'}</div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">CVV</div>
+                <div className="font-mono">{showDetails ? cvv : '•••'}</div>
               </div>
             </div>
+            
+            <div className="pt-2">
+              <div className="text-xs text-muted-foreground mb-1">Cardholder</div>
+              <div className="font-medium">{fullName}</div>
+            </div>
           </div>
-        </div>
+          
+          <div className="bg-card/80 border-t border-border/50 p-4 flex justify-between items-center">
+            <div className="text-sm text-muted-foreground">
+              {hasCard ? 'Active' : 'Inactive'}
+            </div>
+            <div className="flex space-x-2">
+              {walletAddress && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-xs h-8"
+                  onClick={() => copyToClipboard(walletAddress, 'Wallet address')}
+                >
+                  <Copy className="h-3.5 w-3.5 mr-1.5" />
+                  Copy Address
+                </Button>
+              )}
+              {hasCard && (
+                <Button 
+                  variant="default" 
+                  size="sm" 
+                  className="text-xs h-8"
+                  onClick={toggleDetails}
+                >
+                  {showDetails ? 'Hide Details' : 'Show Details'}
+                </Button>
+              )}
+            </div>
+          </div>
+        </Card>
       </div>
-    </Card>
+      
+      {/* Billing Address */}
+      <Card className="bg-card/50 border-border/50 p-4">
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-sm font-medium mb-1">Billing Address</h3>
+            <p className="text-sm text-muted-foreground">
+              {hasCard ? (showDetails ? billingAddress : '•••• •••••• •••• ••••') : 'No billing address provided'}
+            </p>
+          </div>
+          {hasCard && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8 text-muted-foreground hover:text-foreground"
+              onClick={() => billingAddress && copyToClipboard(billingAddress, 'Billing address')}
+              disabled={!billingAddress}
+            >
+              <Copy className="h-3.5 w-3.5" />
+            </Button>
+          )}
+        </div>
+      </Card>
+    </div>
   );
 };
 
