@@ -7,6 +7,9 @@ import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { config } from '@/lib/wagmi';
 import Index from "./pages/Index";
+import Onboarding from "./pages/Onboarding";
+import Signup from "./pages/Signup";
+import Pending from "./pages/Pending";
 import NotFound from "./pages/NotFound";
 
 import '@rainbow-me/rainbowkit/styles.css';
@@ -23,6 +26,9 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/pending" element={<Pending />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

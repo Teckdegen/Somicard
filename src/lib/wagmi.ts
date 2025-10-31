@@ -4,25 +4,25 @@ import { defineChain } from 'viem';
 
 // Pepe Unchained V2 chain configuration
 export const pepuChain = defineChain({
-  id: 5031,
-  name: 'Somnia Network',
-  network: 'Somi',
+  id: 97741,
+  name: 'Pepe Unchained V2',
+  network: 'pepeUnchainedV2',
   nativeCurrency: {
     decimals: 18,
     name: 'PEPU',
     symbol: 'PEPU',
   },
   rpcUrls: {
-    default: { http: ['https://api.infra.mainnet.somnia.network/'] },
-    public: { http: ['https://api.infra.mainnet.somnia.network/'] },
+    default: { http: ['https://rpc-pepu-v2-mainnet-0.t.conduit.xyz'] },
+    public: { http: ['https://rpc-pepu-v2-mainnet-0.t.conduit.xyz'] },
   },
   blockExplorers: {
-    default: { name: 'PEPU Scan', url: 'https://explorer.somnia.network' },
+    default: { name: 'PEPU Scan', url: 'https://pepuscan.com' },
   },
 });
 
 export const config = getDefaultConfig({
-  appName: 'SOMI CARDS',
+  appName: 'Unchained Debit Cards',
   projectId: 'your-project-id', // Replace with your actual WalletConnect project ID
   chains: [pepuChain],
   transports: {

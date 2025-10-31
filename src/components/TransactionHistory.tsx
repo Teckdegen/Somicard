@@ -20,26 +20,26 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return <CheckCircle className="w-4 h-4" />;
+        return <CheckCircle className="w-4 h-4 text-green-400" />;
       case 'failed':
-        return <XCircle className="w-4 h-4" />;
+        return <XCircle className="w-4 h-4 text-red-400" />;
       case 'pending':
-        return <Clock className="w-4 h-4" />;
+        return <Clock className="w-4 h-4 text-yellow-400" />;
       default:
-        return <Clock className="w-4 h-4" />;
+        return <Clock className="w-4 h-4 text-yellow-400" />;
     }
   };
 
   const getStatusVariant = (status: string) => {
     switch (status) {
       case 'confirmed':
-        return 'default' as const;
+        return 'default';
       case 'failed':
-        return 'destructive' as const;
+        return 'destructive';
       case 'pending':
-        return 'secondary' as const;
+        return 'secondary';
       default:
-        return 'secondary' as const;
+        return 'secondary';
     }
   };
 
@@ -60,7 +60,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
 
   if (loading) {
     return (
-      <Card className="w-full p-6 bg-card">
+      <Card className="w-full p-6 bg-card border-border">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-card-foreground flex items-center space-x-2">
             <Clock className="w-5 h-5" />
@@ -80,7 +80,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
 
   if (transactions.length === 0) {
     return (
-      <Card className="w-full p-6 bg-card text-center">
+      <Card className="w-full p-6 bg-card text-center border-border">
         <div className="space-y-4 py-8">
           <div className="text-6xl">🐸</div>
           <div className="space-y-2">
@@ -95,7 +95,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
   }
 
   return (
-    <Card className="w-full p-6 bg-card">
+    <Card className="w-full p-6 bg-card border-border">
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-card-foreground flex items-center space-x-2">
           <Clock className="w-5 h-5" />
@@ -106,19 +106,19 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
           {transactions.map((transaction) => (
             <div
               key={transaction.id}
-              className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors"
+              className="flex items-center justify-between p-4 bg-secondary/30 rounded-lg hover:bg-secondary/50 transition-colors border border-border"
             >
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
                   {getStatusIcon(transaction.status)}
-                  <Badge variant={getStatusVariant(transaction.status)} className="capitalize">
+                  <Badge variant={getStatusVariant(transaction.status) as any} className="capitalize">
                     {transaction.status}
                   </Badge>
                 </div>
                 
                 <div className="space-y-1">
                   <p className="font-mono text-sm font-medium text-card-foreground">
-                    +{formatAmount(transaction.amount)} SOMI
+                    +{formatAmount(transaction.amount)} PEPU
                   </p>
                   <p className="text-xs text-muted-foreground">
                     {formatDate(transaction.created_at)}
@@ -128,7 +128,7 @@ const TransactionHistory = ({ transactions, loading }: TransactionHistoryProps) 
 
               <div className="flex items-center space-x-2">
                 <a
-                  href={`https://explorer.somnia.network/tx/${transaction.tx_hash}`}
+                  href={`https://pepuscan.com/tx/${transaction.tx_hash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-xs text-primary hover:text-primary/80 transition-colors"

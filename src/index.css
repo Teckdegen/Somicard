@@ -2,107 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Somi Cards Design System - Dark theme with blue accents */
-
+/* Unchained Debit Cards Design System - Dark theme with green accents */
 @layer base {
   :root {
-    /* Black background */
-    --background: 0 0% 0%;
-    /* Dark cards on black background */
-    --card: 220 10% 7%;
-    --card-foreground: 0 0% 100%;
-
-    --foreground: 0 0% 100%;
-
-    /* Blue popover on black background */
-    --popover: 220 10% 7%;
-    --popover-foreground: 0 0% 100%;
-
-    /* Primary brand colors - Blue accent */
-    --primary: 220 100% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    /* Secondary brand colors - Dark blue */
-    --secondary: 220 30% 15%;
-    --secondary-foreground: 0 0% 100%;
-
-    /* Muted brand colors - Dark blue */
-    --muted: 220 20% 15%;
-    --muted-foreground: 220 20% 70%;
-
-    /* Accent brand colors - Dark blue */
-    --accent: 220 30% 20%;
-    --accent-foreground: 0 0% 100%;
-
-    /* Destructive brand colors - Red */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    /* Border brand colors - Dark blue */
-    --border: 220 20% 20%;
-    --input: 220 20% 15%;
-    --ring: 220 100% 60%;
-
-    /* Radius for rounded corners */
-    --radius: 0.75rem;
-
-    /* Custom Somi Cards tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(220, 100%, 50%), hsl(220, 100%, 70%));
-    --gradient-card: linear-gradient(145deg, hsl(220, 10%, 10%), hsl(220, 10%, 7%));
-    --shadow-elevated: 0 10px 40px -10px hsl(220, 100%, 10%, 0.5);
-    --shadow-glow: 0 0 30px hsl(220, 100%, 60%, 0.3);
+    --background: 0 0% 0%; /* Black background */
+    --foreground: 120 100% 85%; /* Light green text */
     
-    /* Success/Error states */
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 98%;
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 220 100% 15%;
-    --sidebar-primary: 220 100% 40%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 220 20% 90%;
-    --sidebar-accent-foreground: 220 100% 15%;
-    --sidebar-border: 220 20% 85%;
-    --sidebar-ring: 220 100% 40%;
+    --muted: 120 5% 15%;
+    --muted-foreground: 120 10% 60%;
+    
+    --popover: 0 0% 0%;
+    --popover-foreground: 120 100% 85%;
+    
+    --border: 120 5% 20%;
+    --input: 120 5% 20%;
+    
+    --card: 0 0% 0%;
+    --card-foreground: 120 100% 85%;
+    
+    --primary: 120 100% 50%; /* Vibrant green */
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 120 5% 10%;
+    --secondary-foreground: 120 100% 85%;
+    
+    --accent: 120 100% 40%;
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --ring: 120 100% 50%;
+    
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 0 0% 0%; /* Black background */
+    --foreground: 120 100% 85%; /* Light green text */
+    
+    --muted: 120 5% 15%;
+    --muted-foreground: 120 10% 60%;
+    
+    --popover: 0 0% 0%;
+    --popover-foreground: 120 100% 85%;
+    
+    --border: 120 5% 20%;
+    --input: 120 5% 20%;
+    
+    --card: 0 0% 0%;
+    --card-foreground: 120 100% 85%;
+    
+    --primary: 120 100% 50%; /* Vibrant green */
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 120 5% 10%;
+    --secondary-foreground: 120 100% 85%;
+    
+    --accent: 120 100% 40%;
+    --accent-foreground: 0 0% 0%;
+    
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --ring: 120 100% 50%;
+    
+    --radius: 0.5rem;
   }
 }
 
@@ -111,46 +76,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-screen;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground;
   }
-  
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-background;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply bg-primary/50 rounded-full hover:bg-primary/70 transition-colors;
-  }
-  
-  /* Selection color */
-  ::selection {
-    @apply bg-primary/50 text-white;
-  }
-  
-  /* Custom focus styles */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
-  }
-  
-  /* Card styles */
-  .card {
-    @apply bg-card text-card-foreground rounded-xl border border-border shadow-lg overflow-hidden;
-  }
-  
-  /* Button styles */
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
-  }
-  
-  /* Input styles */
-  .input {
-    @apply bg-input text-foreground border-border focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
-  }
+}
+
+/* Custom Unchained Debit Cards tokens */
+.bg-purple-bg {
+  background: linear-gradient(135deg, #000000 0%, #001a00 100%);
+}
+
+.shadow-elevated {
+  box-shadow: 0 20px 25px -5px rgba(0, 255, 0, 0.1), 0 10px 10px -5px rgba(0, 255, 0, 0.04);
 }

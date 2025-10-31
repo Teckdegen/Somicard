@@ -1,6 +1,6 @@
-# Somi Cards
+# Unchained Debit Cards
 
-Somi Cards is a crypto-powered debit card built on the Somnia Network that allows users to instantly convert and spend SOMI tokens and other supported digital assets as fiat currency anywhere debit cards are accepted.
+Unchained Debit Cards is a crypto-powered debit card built on the Pepe Unchained network that allows users to instantly convert and spend PEPU tokens and other supported digital assets as fiat currency anywhere debit cards are accepted.
 
 Our mission is to bridge Web3 finance with everyday commerce, enabling seamless, secure, and global adoption of digital assets.
 
@@ -14,9 +14,9 @@ Our mission is to bridge Web3 finance with everyday commerce, enabling seamless,
 
 ---
 
-## Solution — Somi Cards
-Somi Cards eliminates the gap between crypto and fiat by providing:
-- **Instant conversion** of SOMI and other tokens into fiat at point-of-sale.
+## Solution — Unchained Debit Cards
+Unchained Debit Cards eliminates the gap between crypto and fiat by providing:
+- **Instant conversion** of PEPU and other tokens into fiat at point-of-sale.
 - **Universal acceptance** across any merchant supporting debit card networks.
 - **Secure infrastructure** leveraging blockchain transparency and bank-grade security.
 - **User-first experience** with mobile card management, transparency, and loyalty rewards.
@@ -28,12 +28,12 @@ Somi Cards eliminates the gap between crypto and fiat by providing:
 - 🌐 **Multi-Currency Support:** Convert tokens into supported fiat currencies on-the-fly.
 - 🔒 **Security First:** Biometric login, spend limits, instant freeze/unfreeze.
 - 📊 **Transparent Fees:** All conversion rates and fees visible before confirmation.
-- 🎁 **Rewards Program:** Earn cashback and loyalty in SOMI tokens.
+- 🎁 **Rewards Program:** Earn cashback and loyalty in PEPU tokens.
 
 ---
 
 ## Technology & Security
-- **Built on Somnia Network** for fast settlement and scalability.
+- **Built on Pepe Unchained Network** for fast settlement and scalability.
 - **Fiat rails via licensed issuer partners** to ensure compliance.
 - **Non-custodial & custodial options** with MPC key management.
 - **PCI-DSS alignment** and ongoing audits for maximum data protection.
@@ -41,7 +41,7 @@ Somi Cards eliminates the gap between crypto and fiat by providing:
 
 **Technical Stack:**
 - **Frontend:** React + TypeScript (with modern component libraries)
-- **Smart Contracts:** Deployed on the Somnia blockchain for token operations and transaction logic
+- **Smart Contracts:** Deployed on the Pepe Unchained blockchain for token operations and transaction logic
 - **Backend:** Node.js/Express (API, transaction orchestration, compliance checks)
 - **Database:** PostgreSQL (user data, card metadata, transaction history)
 - **Security:** End-to-end encryption, biometric authentication, and regular penetration testing
@@ -49,10 +49,10 @@ Somi Cards eliminates the gap between crypto and fiat by providing:
 ---
 
 ## Tokenomics & Business Model
-### SOMI Token Utility
+### PEPU Token Utility
 - Pay card fees at a discount
-- Stake SOMI for premium card tiers
-- Earn rewards in SOMI for card usage
+- Stake PEPU for premium card tiers
+- Earn rewards in PEPU for card usage
 
 ### Revenue Streams
 - Interchange fees from card transactions
@@ -96,7 +96,7 @@ This project is licensed under the MIT License.
 ---
 
 ## Contact & Community
-- [Somnia Network Website](https://somnicard.vercel.app)
+- [Pepe Unchained Website](https://unchained-debit-cards.vercel.app)
 - [Telegram Community](https://t.me/teck_degen)
 - [Twitter](https://x.com/teck_degen)
 

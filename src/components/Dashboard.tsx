@@ -177,7 +177,7 @@ const Dashboard = () => {
       
       toast({
         title: "Top-up Successful!",
-        description: `Added ${amount.toLocaleString()} SOMI to your balance.`,
+        description: `Added ${amount.toLocaleString()} PEPU to your balance.`,
       });
     } catch (error) {
       console.error('Transaction confirmation error:', error);
@@ -204,7 +204,7 @@ const Dashboard = () => {
     try {
       const message = `🚀 New Top-up Transaction\n\n` +
         `👤 Name: ${data.name}\n` +
-        `💰 Amount: ${data.amount.toLocaleString()} SOMI\n` +
+        `💰 Amount: ${data.amount.toLocaleString()} PEPU\n` +
         `🔗 Wallet: ${data.wallet}\n` +
         `📋 TX Hash: ${data.txHash}\n` +
         `⏰ Time: ${new Date().toLocaleString()}`;
@@ -284,7 +284,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-purple-bg bg-cover bg-center bg-no-repeat">
+      <div className="min-h-screen bg-background">
         <div className="min-h-screen bg-background/95 backdrop-blur-sm">
           <div className="container mx-auto px-4 py-8">
             <div className="animate-pulse space-y-8">
@@ -300,8 +300,8 @@ const Dashboard = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-purple-bg bg-cover bg-center bg-no-repeat flex items-center justify-center">
-        <div className="text-center space-y-6 p-8 bg-card rounded-lg shadow-elevated max-w-md mx-auto">
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-6 p-8 bg-card rounded-lg shadow-elevated max-w-md mx-auto border border-border">
           <h2 className="text-xl font-bold text-destructive">Access Denied</h2>
           <div className="space-y-4">
             <p className="text-muted-foreground">
@@ -324,7 +324,7 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <Button onClick={handleDisconnect} variant="outline">
+          <Button onClick={handleDisconnect} variant="outline" className="border-green-500/50 text-green-500 hover:bg-green-500/10">
             Disconnect Wallet
           </Button>
         </div>
@@ -333,25 +333,31 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-purple-bg bg-cover bg-center bg-no-repeat">
-      <div className="min-h-screen bg-background/95 backdrop-blur-sm">
+    <div className="min-h-screen bg-black relative overflow-hidden selection:bg-green-600/30 selection:text-white">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0a0a0a_1px,transparent_1px),linear-gradient(to_bottom,#0a0a0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/5 rounded-full blur-3xl animate-pulse motion-safe:animate-[pulse_5s_ease-in-out_infinite]" />
+      
+      <div className="min-h-screen relative z-10">
         {/* Header */}
-        <header className="sticky top-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm">
+        <header className="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-green-500/10 shadow-lg shadow-green-500/5">
           <div className="container mx-auto px-4 py-4">
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <User className="w-6 h-6 text-primary" />
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500/20 to-green-500/5 border border-green-500/30 flex items-center justify-center shadow-inner">
+                    <User className="w-5 h-5 text-green-500" />
+                  </div>
                   <div>
-                    <h1 className="text-lg font-bold text-card-foreground">
+                    <h1 className="text-lg font-bold text-white tracking-tight">
                       {user.full_name}
                     </h1>
                     <button
                       onClick={() => copyToClipboard(address!)}
-                      className="flex items-center space-x-1 text-sm text-muted-foreground hover:text-card-foreground transition-colors"
+                      className="flex items-center space-x-1.5 text-sm text-gray-400 hover:text-green-500 transition-all group hover:-translate-y-0.5"
                     >
                       <span className="font-mono">{truncateAddress(address!)}</span>
-                      <Copy className="w-3 h-3" />
+                      <Copy className="w-3 h-3 group-hover:scale-110 transition-transform" />
                     </button>
                   </div>
                 </div>
@@ -361,7 +367,7 @@ const Dashboard = () => {
                 onClick={handleDisconnect}
                 variant="outline"
                 size="sm"
-                className="text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
+                className="border-green-500/50 text-green-500 hover:bg-green-500/10 hover:border-green-500 transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500/60"
               >
                 <LogOut className="w-4 h-4 mr-2" />
                 Disconnect
@@ -388,7 +394,7 @@ const Dashboard = () => {
           </section>
 
           {/* Top Up Form */}
-          <section>
+          <section className="transition-all duration-300">
             <TopUpForm
               onTopUp={handleTopUp}
               isLoading={isPending || isConfirming}
@@ -396,7 +402,7 @@ const Dashboard = () => {
           </section>
 
           {/* Transaction History */}
-          <section>
+          <section className="transition-all duration-300">
             <TransactionHistory
               transactions={transactions}
               loading={false}
